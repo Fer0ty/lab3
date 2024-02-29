@@ -11,8 +11,8 @@ from lab3.compiler.preprocessing import process_includes
 def compile_pipeline(source: TextIO, output: TextIO):
     content = source.read()
     content = process_includes(content)
-    lexer = Lexer(StringIO(content))
-    tokens = lexer.lex()
+    _lexer = Lexer(StringIO(content))
+    tokens = _lexer.lex()
     nodes = build_nodes_from_tokens(tokens)
     program = build_program_from_nodes(nodes)
     json.dump(program.model_dump(), output, indent=2)
