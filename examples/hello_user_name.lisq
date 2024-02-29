@@ -1,0 +1,16 @@
+#include lisq_lib/math.lisq
+#include lisq_lib/strings.lisq
+
+(alloc_str username 100)
+
+(let ((i 0) (char 0))
+    (set char (get_char))
+    (loop while (& (< i 100) (!= char 0)) do
+        (set_string_char username i char)
+        (set i (+ i 1))
+        (set char (get_char))
+    )
+    (print_string "hello, ")
+    (print_string username)
+    (print_string "!")
+)
