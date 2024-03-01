@@ -332,7 +332,7 @@ def json_to_microcode(js):
     return microcode_list
 
 
-with open("lab3/machine/microcode.json", "r") as file:
+with open("lab3/machine/microcode.json", "r", encoding="utf-8") as file:
     json_data = file.read()
 
 json_obj = json.loads(json_data)
