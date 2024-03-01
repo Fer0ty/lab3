@@ -30,6 +30,9 @@ disable = [
   "C0114",  # missing-module-docstring
   "C0116",  # missing-function-docstring
   "C0115",  # missing-class-docstring
+  "R0913",
+  "R0914",
+  "R0913"
 ]
 
 [tool.black]
