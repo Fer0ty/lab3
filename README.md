@@ -136,10 +136,7 @@
 - **IO**
     - IN
     - OUT
-       
-  - **Stack manipulation**
-    - PUSH 
-    - POP 
+
   - **Branching** 
     - CMP O 
     - JZ  M 
