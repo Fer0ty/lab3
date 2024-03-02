@@ -17,9 +17,7 @@ class OpCode(str, Enum):
     LD = "LD"
     ST = "ST"
     
-    #IO
-    IN = "IN"
-    OUT = "OUT"
+
 
     # Stack manipulation
     PUSH = "PUSH"
