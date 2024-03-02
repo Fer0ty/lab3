@@ -132,7 +132,11 @@
     - SHR O
   - **Memory access**
     - LD O
-    - ST M 
+    - ST M
+- **IO**
+    - IN
+    - OUT
+       
   - **Stack manipulation**
     - PUSH 
     - POP 
