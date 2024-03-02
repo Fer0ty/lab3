@@ -167,7 +167,7 @@ $ python -m lab3.compiler <input_file> <output_file>
 ### Data Path
 ![proc_model.png](resources%2Fproc_model.png)
 
-Сигналы (реализуются в микрокомандах [microcode.json](lab3%2Fmachine%2Fmicrocode.json), [microcode.py](lab3%2Fmachine%2Fmicrocode.py)) на схеме отображены голубыми линиями:
+Сигналы (реализуются в микрокомандах [microcode.json](lab3%2Fmachine%2Fmicrocode.json), [microcode.py](lab3%2Fmachine%2Fmicrocode.py)) на схеме отображены голубыми линиями (исполняются в один такт):
 - latch_[регистр] - открыть вентиль для записи в регистр
 - write_io_latch - открыть вентиль для записи в регистр ввода-вывода
 - write_data_latch - открыть вентиль для записи в память данных, в ячейку, указанную в AR
