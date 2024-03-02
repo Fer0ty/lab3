@@ -16,6 +16,10 @@ class OpCode(str, Enum):
     # Memory access
     LD = "LD"
     ST = "ST"
+    
+    #IO
+    IN = "IN"
+    OUT = "OUT"
 
     # Stack manipulation
     PUSH = "PUSH"
