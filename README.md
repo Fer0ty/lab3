@@ -2,7 +2,7 @@
 
 - Выполнил: Соловьев Артемий
 - Группа: P33151
-- Вариант: `lisp | acc | neum | hw | instr | struct | stream | mem | cstr | prob2 | 8bit'
+- Вариант: `lisp | acc | harv | mc | tick | struct | stream | port | pstr | prob5 | [4]char'
 - Без усложнения
 
 ## Язык программирования
