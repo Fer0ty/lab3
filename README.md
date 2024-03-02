@@ -135,7 +135,7 @@
     - ST M 
   - **Stack manipulation**
     - PUSH 
-    - POP -  удалить значение со стека
+    - POP 
   - **Branching** 
     - CMP O 
     - JZ  M 
