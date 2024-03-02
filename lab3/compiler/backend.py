@@ -33,14 +33,6 @@ from lab3.compiler.ast import (
 class Backend(AstBackend):
     stub_counter = 0
 
-    def __init__(self, io_read_addr: int = 52, io_write_addr: int = 69):
-        self.stack_identifiers: list[str] = []
-        self.program: list[Instruction] = []
-        self.string_literals: set[str] = set()
-        self.string_buffers: dict[str, int] = {}
-        self.io_read_addr = io_read_addr
-        self.io_write_addr = io_write_addr
-
     @classmethod
     def get_stub_id(cls):
         Backend.stub_counter += 1
@@ -64,6 +56,14 @@ class Backend(AstBackend):
             )
         )
         self.stack_identifiers.append(node.identifier)
+
+    def __init__(self, read: int = 52, write: int = 69):
+        self.stack_identifiers: list[str] = []
+        self.program: list[Instruction] = []
+        self.string_literals: set[str] = set()
+        self.string_buffers: dict[str, int] = {}
+        self.read = read
+        self.write = write
 
     def visit_let_node(self, node: LetNode):
         for var in node.var_nodes:
@@ -280,7 +280,7 @@ class Backend(AstBackend):
             Instruction(
                 op_code=OpCode.LD,
                 operand_type=OperandType.ADDRESS,
-                operand=self.io_read_addr,
+                operand=self.read,
                 comment="io read",
             )
         )
@@ -291,7 +291,7 @@ class Backend(AstBackend):
             Instruction(
                 op_code=OpCode.ST,
                 operand_type=OperandType.ADDRESS,
-                operand=self.io_write_addr,
+                operand=self.write,
                 comment="io write",
             )
         )
@@ -545,7 +545,7 @@ def replace_stubs(program: Program):
                     f" {index} was not found in compiled program"
                 )
             referenced_addr = (
-                instr_id_address[instr.referenced_instr_id] + instr.referenced_instr_offset
+                    instr_id_address[instr.referenced_instr_id] + instr.referenced_instr_offset
             )
             program.instructions[index] = Instruction(
                 op_code=instr.op_code,
