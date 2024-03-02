@@ -30,7 +30,7 @@ from lab3.compiler.ast import (
 )
 
 
-class Comp3Backend(AstBackend):
+class Backend(AstBackend):
     stub_counter = 0
 
     def __init__(self, io_read_addr: int = 52, io_write_addr: int = 69):
@@ -43,8 +43,8 @@ class Comp3Backend(AstBackend):
 
     @classmethod
     def get_stub_id(cls):
-        Comp3Backend.stub_counter += 1
-        return Comp3Backend.stub_counter
+        Backend.stub_counter += 1
+        return Backend.stub_counter
 
     def visit(self, node: AstNode):
         node.compile(self)
@@ -134,8 +134,8 @@ class Comp3Backend(AstBackend):
             )
 
     def visit_loop_while_node(self, node: LoopWhileNode):
-        start_id = Comp3Backend.get_stub_id()
-        end_id = Comp3Backend.get_stub_id()
+        start_id = Backend.get_stub_id()
+        end_id = Backend.get_stub_id()
 
         loop_condition_index = len(self.program)
         node.loop_condition.compile(self)
@@ -194,7 +194,7 @@ class Comp3Backend(AstBackend):
             MathNode.MathOp.GE: OpCode.JAE,
         }
 
-        end_stub_id = Comp3Backend.get_stub_id()
+        end_stub_id = Backend.get_stub_id()
 
         # Right operand is processed first only for
         # the left operand to be in AC, and right operand
@@ -383,7 +383,7 @@ class Comp3Backend(AstBackend):
         self.program[func_start_index].instr_id.append(node.identifier)
 
     def visit_func_call_node(self, node: FuncCallNode):
-        return_stub_id = Comp3Backend.get_stub_id()
+        return_stub_id = Backend.get_stub_id()
 
         self.program.append(
             InstrStubInstruction(
@@ -480,8 +480,8 @@ class Comp3Backend(AstBackend):
         self.string_buffers[node.identifier] = node.size
 
     def visit_if_node(self, node: IfNode):
-        false_expr_stub_id = Comp3Backend.get_stub_id()
-        if_end_stub = Comp3Backend.get_stub_id()
+        false_expr_stub_id = Backend.get_stub_id()
+        if_end_stub = Backend.get_stub_id()
         node.if_condition.compile(self)
 
         self.program.append(
@@ -582,7 +582,7 @@ class CompilerFacade:
         self.string_literals: set[str] = set()
         self.string_buffers: dict[str, int] = {}
 
-    def process_backend_results(self, backend: Comp3Backend):
+    def process_backend_results(self, backend: Backend):
         self.instructions += backend.program
         for literal in backend.string_literals:
             self.string_literals.add(literal)
@@ -621,7 +621,7 @@ class CompilerFacade:
     def build_program(self, nodes: list[AstNode]):
         # Process all global declarations first
         for node in filter(is_global, nodes):
-            backend = Comp3Backend()
+            backend = Backend()
             backend.visit(node)
             self.process_backend_results(backend)
 
@@ -639,7 +639,7 @@ class CompilerFacade:
 
         # Process everything else
         for node in filter(lambda x: not is_global(x), nodes):
-            backend = Comp3Backend()
+            backend = Backend()
             backend.visit(node)
             self.process_backend_results(backend)
 
